@@ -10,16 +10,17 @@ const AllocationForm = (props) => {
 
     const submitEvent = () => {
 
-            if(cost > remaining) {
-                alert("The value cannot exceed remaining funds  £"+remaining);
-                setCost("");
-                return;
-            }
+        if(cost > remaining) {
+            alert("The value cannot exceed remaining funds  £"+remaining);
+            setCost("");
+            return;
+        }
 
         const expense = {
             name: name,
             cost: parseInt(cost),
         };
+
         if(action === "Reduce") {
             dispatch({
                 type: 'RED_EXPENSE',
@@ -31,6 +32,20 @@ const AllocationForm = (props) => {
                     payload: expense,
                 });
             }
+    };
+
+    const numberInputKeyDown = (event) => {
+        const eventCode = event.code.toLowerCase();
+        if (!(event.code !== null
+        && (eventCode.includes("digit")
+            || eventCode.includes("arrow")
+            || eventCode.includes("home")
+            || eventCode.includes("end")
+            || eventCode.includes("backspace") 
+            || (eventCode.includes("numpad") && eventCode.length === 7)))
+        ) {
+        event.preventDefault();
+        }
     };
 
     return (
@@ -65,8 +80,10 @@ const AllocationForm = (props) => {
                         id='cost'
                         value={cost}
                         style={{ marginLeft: '2rem' , size: 10}}
-                        onChange={(event) => setCost(event.target.value)}>
-                        </input>
+                        onKeyDown={numberInputKeyDown}
+                        onChange={event => setCost(event.target.value)} 
+                    >
+                    </input>
 
                     <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
                         Save
