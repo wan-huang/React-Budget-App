@@ -56,7 +56,7 @@ const Budget = () => {
 
     return (
         <div className='alert alert-secondary'>
-            Budget: £ 
+            Budget:${
             <span>
                 <input
                     required="required"
@@ -64,9 +64,11 @@ const Budget = () => {
                     id="budget"
                     value={budget}
                     step="10"
+                    width="10"
                     onChange={onChangeBudgetHandler}
             ></input>
             </span>
+        }
         </div>
     )
 }
